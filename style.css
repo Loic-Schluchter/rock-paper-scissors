@@ -1,0 +1,24 @@
+body{
+    background-color: rgb(240, 240, 240);
+
+}
+button{
+    width: 100px;
+    height: 80px;
+    border-radius: 25px;
+}
+#button-container{
+    display: flex;
+    gap: 2rem;
+}
+.game-container{
+    display: flex;
+    font-size: x-large;
+    gap: 2rem;
+    color: red;
+}
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
