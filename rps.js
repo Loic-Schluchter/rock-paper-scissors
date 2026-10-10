@@ -5,6 +5,9 @@
 
 
 
+
+
+
 function getComputerChoice() {
 
 
@@ -21,85 +24,103 @@ function getComputerChoice() {
     }
 }
 
-function getUserChoice(){
-    return prompt("rock, paper or scissors ?");
-}
 
 function playGame(){
+
+
+
+    const playBtn = document.querySelectorAll("button");
+    const body = document.querySelector("body");
+    const div = document.createElement("div");
+    const p1 = document.createElement("p");
+    const p2 = document.createElement("p");
+    const p3 = document.createElement("p");
+    const p4 = document.createElement("p");
+
     //Initializing Scores
-    var humanScore = 0;
-    var computerScore = 0;
+    let humanScore = 0;
+    let computerScore = 0;
 
-    //Start of the loop
-    for (let i = 0; i < 5; i++) {
+    if (humanScore === 5){
+        body.appendChild(div);
+        p4.textContent = `Human Wins !`
+        div.append(p4);
+    }
+    else if (computerScore === 5){
+        body.appendChild(div);
+        p4.textContent = `Computer Wins !`
+        div.append(p4);
+    }
 
-        //Retrieving Results
-        const userChoice = getUserChoice().toLowerCase();
-        const computerChoice = getComputerChoice();
 
+    //Initializing buttons
+    playBtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            playRound(
+                btn.textContent.toLowerCase(),
+                getComputerChoice()
+            );
+        });
+    });
 
-        //Comparison of Results
-        function playRound(userChoice, computerChoice){
+    //Comparison of Results
+    function playRound(userChoice, computerChoice){
 
             if (userChoice === "rock"){
                 if (computerChoice === "paper"){
-                    alert("You lose ! Paper beats Rock")
                     computerScore += 1
                 }
                 else if (computerChoice === "rock"){
-                    alert("Nobody wins !")
+                    alert("It's a draw ! Nobody wins")
                 }
                 else if (computerChoice === "scissors"){
-                    alert("You win ! Rock beats Scissors")
                     humanScore += 1
                 }
             }
             else if (userChoice === "paper"){
                 if (computerChoice === "paper"){
-                    alert("Nobody wins !")
+                    alert("It's a draw ! Nobody wins")
                 }
                 else if (computerChoice === "rock"){
-                    alert("You win ! Paper beats Rock")
                     humanScore += 1
                 }
                 else if (computerChoice === "scissors"){
-                    alert("You lose ! Scissors beats Paper")
                     computerScore += 1
                 }
             }
             else if (userChoice === "scissors"){
                 if (computerChoice === "paper"){
-                    alert("You win ! Scissors beats Paper")
                     humanScore += 1
                 }
                 else if (computerChoice === "rock"){
-                    alert("You lose ! Rock beats scissors")
                     computerScore += 1
                 }
                 else if (computerChoice === "scissors"){
-                    alert("Nobody wins !")
-
+                    alert("It's a draw ! Nobody wins")
                 }
             }
-
             //Displays the score window
-            window.alert(`User score : ${humanScore} || Computer score : ${computerScore} \n Remaining rounds : ${4 - i}`);
-        }
-        //Start the game round
-        playRound(userChoice, computerChoice);
-    }
-    alert(`Final score : \n Human : ${humanScore} || Computer : ${computerScore}`);
-    if (humanScore > computerScore){
-        alert("You win the game !")
-    }
-    else if (computerScore > humanScore){
-        alert ("You lose the game !")
-    }
-    else{
-        alert("Nobody wins – it’s a draw!")
-    }
+            p1.textContent = `Player score : ${humanScore}`;
+            p2.textContent = `||`
+            p3.textContent = `Computer score : ${computerScore}`
+            div.classList.add("game-container")
+            div.append(p1,p2,p3);
+            body.appendChild(div);
+            if (humanScore >= 5 || computerScore >= 5) {
+                p4.textContent = humanScore >= 5
+                    ? "Human Wins!"
+                    : "Computer Wins!";
+
+                div.appendChild(p4);
+                playBtn.forEach((btn) => {
+                    btn.disabled = true;
+                });
+            }
+
+            }
 }
 //Play all 5 rounds
+
 playGame()
 
 
